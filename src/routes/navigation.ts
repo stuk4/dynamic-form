@@ -31,18 +31,10 @@ export const navigation:INavigation = {
         
       },
       {
-        name: 'Reports',
+        name: 'Dashboard',
         to: '/dashboard',
-        icon:BarChartIcon,
-        subMenu:[
-          {
-            name: 'Bar',
-            to: '/bar',
-            icon:BarChartIcon,
-          }
-        ]
-      }
-      
+        icon:BarChartIcon
      
+      }
     ]
   }
