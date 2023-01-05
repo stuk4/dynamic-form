@@ -5,6 +5,7 @@ import { MyTextField } from '../../../components/fields/MyTextField'
 import { MyDateField } from '../../../components/fields/MyDateField'
 import { Field, FieldType } from '../../../interfaces/IForms'
 import { MySelectField } from '../../../components/fields/MySelectField'
+import { MyTextFieldMultiline } from '../../../components/fields/MyTextFieldMultiline'
 interface Props {
   fields: Field[]
   preview?: boolean
@@ -14,7 +15,7 @@ interface Props {
 export const DynamicFields: React.FC<Props> = ({ fields, preview = false }: Props): JSX.Element | null => {
   if (fields.length !== 0) {
     return (
-                <div className="metadata__container-metadata">
+                <>
                     {
                         fields.map(({ type, name, label, options }, index) => {
                           if (type === FieldType.INPUT) {
@@ -49,6 +50,19 @@ export const DynamicFields: React.FC<Props> = ({ fields, preview = false }: Prop
                                     />
 
                             )
+                          } else if (type === FieldType.TEXT_AREA) {
+                            return (
+
+                                  <MyTextFieldMultiline
+                                      disabled={preview}
+                                      key={ name }
+                                      label={ label }
+                                      name={ name }
+                                      options={options}
+
+                                  />
+
+                            )
                           } else {
                             return (
 
@@ -60,7 +74,7 @@ export const DynamicFields: React.FC<Props> = ({ fields, preview = false }: Prop
                           // throw new Error(`El type: ${ type }, no es soportado`);
                         })
                     }
-                </div>
+                </>
 
     )
   } else {

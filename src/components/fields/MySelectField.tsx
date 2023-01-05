@@ -18,7 +18,7 @@ export const MySelectField: React.FC<Props> = ({ label, options, handleOnBlur, h
   const { onBlur, onChange, ...field } = { ...fields }
 
   return (
-        <FormControl size="small" fullWidth variant="outlined" >
+        <FormControl size='small' fullWidth variant="outlined" >
             <InputLabel htmlFor={props.name}>{label}</InputLabel>
             <Select
                 error={Boolean(error) && touched}

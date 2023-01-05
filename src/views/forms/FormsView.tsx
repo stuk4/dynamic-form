@@ -1,9 +1,17 @@
-import { Box, Container, Paper, TextField } from '@mui/material'
-import React from 'react'
+import { Box, Button, Container, Paper } from '@mui/material'
+import React, { useContext } from 'react'
 
 import { SelectObjectType } from './components/SelectObjectType'
+import { DynamicFormsContext, IDynamicFormsContext } from '../../context/DynamicFormsContext'
+import { DynamicFields } from './components/DynamicFields'
+import { Form, Formik, FormikProps } from 'formik'
+import { useDynamicFields } from '../../hooks/useDynamicFields'
 
 export const FormsView: React.FC = (): JSX.Element => {
+  const { dynamicForm } = useContext(DynamicFormsContext) as IDynamicFormsContext
+  const { validationSchema, initialValues } = useDynamicFields({
+    fields: dynamicForm.formData
+  })
   return (
         <Container component="main" maxWidth="sm"
             sx={
@@ -16,25 +24,46 @@ export const FormsView: React.FC = (): JSX.Element => {
                 p: { xs: 3, md: 3 }
               }}
               >
+                <>
+
                 <SelectObjectType />
-                <Box
-                  component="form"
-                  sx={{
-                    '& .MuiTextField-root': { m: 1, width: '25ch' }
-                  }}
+                { dynamicForm.formData.length !== 0 &&
+                <Formik
+                    initialValues={initialValues}
+                    validationSchema={validationSchema}
+                    onSubmit={(values) => {
+                      console.log(values)
+                    }}
 
-                  noValidate
-                  autoComplete="off"
                 >
-                  <TextField
-                    id="outlined-multiline-flexible"
-                    label="Multiline"
-                    multiline
-                    maxRows={4}
-                  />
 
-                </Box>
+                    {
+                        (formik: FormikProps<Record<string, any>>) => (
+                          <Form noValidate>
+                            <Box
+                              component="div"
+                              sx={{
+                                display: 'flex',
+                                justifyContent: 'center',
+                                flexWrap: 'wrap',
+                                margin: 'auto',
+                                '& .MuiTextField-root': { m: 1, width: '55%' },
+                                '& .MuiFormControl-root': { m: 1, width: '55%' },
+                                '& .MuiButton-root': { m: 1, width: '55%' }
+                              }}
 
+                            >
+
+                              <DynamicFields fields={dynamicForm.formData}/>
+                              <Button color='secondary' size='large' variant="contained" type='submit'>Enviar</Button>
+
+                            </Box>
+                          </Form>
+                        )
+                      }
+                </Formik>
+              }
+             </>
             </Paper>
         </Container>
   )

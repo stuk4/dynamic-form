@@ -1,7 +1,9 @@
 import React, { useState } from 'react'
+import { dataExample } from '../data-example'
+import { Field } from '../interfaces/IForms'
 
 export interface IDynamicFormsState {
-  objectType: string
+  formData: Field[]
 }
 export interface IDynamicFormsContext {
   dynamicForm: IDynamicFormsState
@@ -12,11 +14,13 @@ export const DynamicFormsContext = React.createContext<IDynamicFormsContext | nu
 
 export const DynamicFormsProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [dynamicForm, setDynamicForm] = useState<IDynamicFormsState>({
-    objectType: '1'
+    formData: []
   })
 
   const updateObjectType = (objectType: string): void => {
-    setDynamicForm({ ...dynamicForm, objectType })
+    const data = dataExample[parseInt(objectType) - 1].form as Field[]
+    setDynamicForm({ ...dynamicForm, formData: [] })
+    setDynamicForm({ ...dynamicForm, formData: data })
   }
 
   return (

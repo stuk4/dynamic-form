@@ -8,17 +8,17 @@ interface Props {
   //   Si se necesita agregar un campo extra
   extraFields?: Record<string, any>
 }
-interface ReturnDynamicFields {
+interface IUseDynamicFields {
   validationSchema: Record<string, any>
   initialValues: Record<string, any>
 }
 
-export const useDynamicFields = ({ fields, extraFields }: Props): ReturnDynamicFields => {
-  const initialValues: Record<string, any> = {}
-  const requiredFields: Record<string, any> = {}
+const initialValues: Record<string, any> = {}
+const requiredFields: Record<string, any> = {}
+export const useDynamicFields = ({ fields, extraFields }: Props): IUseDynamicFields => {
   if (fields.length !== 0) {
     for (const input of fields) {
-      initialValues[input.name] = input.value
+      initialValues[input.name] = input.value.length !== 0 ? input.value : ''
 
       if (input.validations.length === 0) continue
       let schema = Yup.string()
@@ -29,7 +29,7 @@ export const useDynamicFields = ({ fields, extraFields }: Props): ReturnDynamicF
         }
 
         if (rule.type === ValidationType.MAX_LENGTH) {
-          schema = schema.min(rule.value ?? 2, `Máximo de ${rule.value ?? 2} caracteres`)
+          schema = schema.max(rule.value ?? 100, `Máximo de ${rule.value ?? 100} caracteres`)
         }
 
         // ...Agregar  otras reglas si se necesita

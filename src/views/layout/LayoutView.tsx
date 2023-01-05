@@ -12,7 +12,6 @@ import Grid from '@mui/material/Grid'
 import Link from '@mui/material/Link'
 import MenuIcon from '@mui/icons-material/Menu'
 import NotificationsIcon from '@mui/icons-material/Notifications'
-
 import { AppBar } from './components/AppBar'
 import { Outlet } from 'react-router-dom'
 import { SideBar } from './components/SideBar'
@@ -66,16 +65,13 @@ const LayoutView: React.FC = (): JSX.Element => {
               noWrap
               sx={{ flexGrow: 1 }}
             >
-              Dashboard
+              Formulario dinámico
             </Typography>
             <IconButton color="inherit">
               <Badge badgeContent={4} color="secondary">
                 <NotificationsIcon />
               </Badge>
             </IconButton>
-            {/* <IconButton onClick={()=> logout()} color="inherit">
-              <Logout  />
-            </IconButton> */}
           </Toolbar>
         </AppBar>
         <SideBar
