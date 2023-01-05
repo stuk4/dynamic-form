@@ -1,31 +1,24 @@
 
+import * as React from 'react'
+import { ThemeProvider } from '@mui/material/styles'
+import CssBaseline from '@mui/material/CssBaseline'
+import Box from '@mui/material/Box'
+import Toolbar from '@mui/material/Toolbar'
+import Typography from '@mui/material/Typography'
+import IconButton from '@mui/material/IconButton'
+import Badge from '@mui/material/Badge'
+import Container from '@mui/material/Container'
+import Grid from '@mui/material/Grid'
+import Link from '@mui/material/Link'
+import MenuIcon from '@mui/icons-material/Menu'
+import NotificationsIcon from '@mui/icons-material/Notifications'
 
-import * as React from 'react';
-import {  createTheme, ThemeProvider } from '@mui/material/styles';
-import CssBaseline from '@mui/material/CssBaseline';
-import Box from '@mui/material/Box';
-import Toolbar from '@mui/material/Toolbar';
-import List from '@mui/material/List';
-import Typography from '@mui/material/Typography';
-import Divider from '@mui/material/Divider';
-import IconButton from '@mui/material/IconButton';
-import Badge from '@mui/material/Badge';
-import Container from '@mui/material/Container';
-import Grid from '@mui/material/Grid';
-import Paper from '@mui/material/Paper';
-import Link from '@mui/material/Link';
-import MenuIcon from '@mui/icons-material/Menu';
-import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
-import NotificationsIcon from '@mui/icons-material/Notifications';
+import { AppBar } from './components/AppBar'
+import { Outlet } from 'react-router-dom'
+import { SideBar } from './components/SideBar'
+import { mdTheme } from '../../config/theme'
 
-
-import { AppBar } from './components/AppBar';
-import { Outlet } from 'react-router-dom';
-import { Logout } from '@mui/icons-material';
-import { SideBar } from './components/SideBar';
-import { mdTheme } from '../../config/theme';
-
-function Copyright(props: any) {
+const Copyright: React.FC<any> = (props: any): JSX.Element => {
   return (
     <Typography variant="body2" color="text.secondary" align="center" {...props}>
       {'Copyright © '}
@@ -35,21 +28,14 @@ function Copyright(props: any) {
       {new Date().getFullYear()}
       {'.'}
     </Typography>
-  );
+  )
 }
 
-
-
-
-
-
-
-
-const LayoutView = () => {
-  const [open, setOpen] = React.useState(true);
-  const toggleDrawer = () => {
-    setOpen(!open);
-  };
+const LayoutView: React.FC = (): JSX.Element => {
+  const [open, setOpen] = React.useState<boolean>(true)
+  const toggleDrawer = (): void => {
+    setOpen(!open)
+  }
 
   return (
     <ThemeProvider theme={mdTheme}>
@@ -58,7 +44,7 @@ const LayoutView = () => {
         <AppBar position="absolute" open={open}>
           <Toolbar
             sx={{
-              pr: '24px', // keep right padding when drawer closed
+              pr: '24px' // keep right padding when drawer closed
             }}
           >
             <IconButton
@@ -68,7 +54,7 @@ const LayoutView = () => {
               onClick={toggleDrawer}
               sx={{
                 marginRight: '36px',
-                ...(open && { display: 'none' }),
+                ...(open && { display: 'none' })
               }}
             >
               <MenuIcon />
@@ -84,7 +70,7 @@ const LayoutView = () => {
             </Typography>
             <IconButton color="inherit">
               <Badge badgeContent={4} color="secondary">
-                <NotificationsIcon   />
+                <NotificationsIcon />
               </Badge>
             </IconButton>
             {/* <IconButton onClick={()=> logout()} color="inherit">
@@ -92,7 +78,7 @@ const LayoutView = () => {
             </IconButton> */}
           </Toolbar>
         </AppBar>
-        <SideBar 
+        <SideBar
             open={open}
             toggleDrawer={toggleDrawer}
         />
@@ -105,7 +91,7 @@ const LayoutView = () => {
                 : theme.palette.grey[900],
             flexGrow: 1,
             height: '100vh',
-            overflow: 'auto',
+            overflow: 'auto'
           }}
         >
           <Toolbar />
@@ -113,14 +99,14 @@ const LayoutView = () => {
             <Grid container spacing={3}>
             {/* to render content */}
                 <Outlet />
-           
+
             </Grid>
             <Copyright sx={{ pt: 4 }} />
           </Container>
         </Box>
       </Box>
     </ThemeProvider>
-  );
+  )
 }
 
-export default LayoutView;
+export default LayoutView
