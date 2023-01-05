@@ -26,7 +26,7 @@ export const MyFileCsvField: React.FC<Props> = ({ label, handleOnBlur, handleOnC
         variant="standard"
         type="file"
         inputProps={{
-          accept: ''
+          accept: '.csv'
         }}
         onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
           const file = e.target.files?.[0]

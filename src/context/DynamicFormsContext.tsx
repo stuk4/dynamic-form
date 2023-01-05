@@ -1,10 +1,12 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { dataExample } from '../data-example'
 import { Field } from '../interfaces/IForms'
 
 export interface IDynamicFormsContext {
   dynamicForm: Field[]
+  savedForms: [ Field[]]
   loading: boolean
+  saveForm: (form: Field[]) => void
   updateObjectType: (objectType: string) => void
 
 }
@@ -13,26 +15,7 @@ export const DynamicFormsContext = React.createContext<IDynamicFormsContext | nu
 export const DynamicFormsProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [dynamicForm, setDynamicForm] = useState<Field[]>([])
   const [loading, setLoading] = useState<boolean>(true)
-
-  // const updateObjectType = async (objectType: string): Promise<void> => {
-  //   setLoading(true)
-  //   // Simulo el comportamiento de una petición
-  //   try {
-  //     await new Promise<void>(resolve => {
-  //       setTimeout(resolve, 1000)
-  //     }).then(() => {
-  //       const data = dataExample[parseInt(objectType) - 1].form as Field[]
-  //       setDynamicForm(data)
-  //       setLoading(false)
-  //     }).catch((error) => {
-  //       console.error(error)
-  //       setLoading(false)
-  //     })
-  //   } catch (error) {
-  //     console.error(error)
-  //     setLoading(false)
-  //   }
-  // }
+  const [savedForms, setSavedForms] = useState<[Field[]]>([[]])
   const updateObjectType = (objectType: string): void => {
     setLoading(true)
     void new Promise<void>(resolve => {
@@ -47,8 +30,24 @@ export const DynamicFormsProvider: React.FC<{ children: React.ReactNode }> = ({ 
         setLoading(false)
       })
   }
+  const saveForm = (form: Field[]): void => {
+    if (localStorage.getItem('savedForms') === null)localStorage.setItem('savedForms', '[]')
+    const currentArray: [Field[]] = JSON.parse(localStorage.getItem('savedForms') ?? '[[]]')
+    currentArray.push(form)
+    localStorage.setItem('savedForms', JSON.stringify(currentArray))
+    setSavedForms(currentArray)
+  }
+  const getSavedForms = (): void => {
+    const currentArray: [Field[]] = JSON.parse(localStorage.getItem('savedForms') ?? '[]')
+    console.log(currentArray)
+    setSavedForms(currentArray)
+  }
+  useEffect(() => {
+    getSavedForms()
+  }, [])
+
   return (
-    <DynamicFormsContext.Provider value={{ dynamicForm, updateObjectType, loading }}>
+    <DynamicFormsContext.Provider value={{ savedForms, saveForm, dynamicForm, updateObjectType, loading }}>
         {children}
     </DynamicFormsContext.Provider>
   )
