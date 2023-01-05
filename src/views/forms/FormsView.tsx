@@ -55,8 +55,8 @@ export const FormsView: React.FC = (): JSX.Element => {
 
                             >
 
-                              <DynamicFields fields={dynamicForm}/>
-                              <Button color='secondary' size='large' variant="contained" type='submit'>Enviar</Button>
+                              <DynamicFields fields={dynamicForm} />
+                              <Button disabled={loading} color='secondary' size='large' variant="contained" type='submit'>Enviar</Button>
 
                             </Box>
                           </Form>
@@ -75,9 +75,10 @@ export const FormsView: React.FC = (): JSX.Element => {
 
                   >
 
-                            <GenerateSekeletonFields rows={4} />
+                      <GenerateSekeletonFields rows={4} />
                   </Box>
               }
+
              </>
             </Paper>
         </Container>

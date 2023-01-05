@@ -6,10 +6,12 @@ import { MyDateField } from '../../../components/fields/MyDateField'
 import { Field, FieldType } from '../../../interfaces/IForms'
 import { MySelectField } from '../../../components/fields/MySelectField'
 import { MyTextFieldMultiline } from '../../../components/fields/MyTextFieldMultiline'
+import { MyFileCsvField } from '../../../components/fields/MyFileCsvField'
 interface Props {
   fields: Field[]
   preview?: boolean
   smallForm?: boolean
+
 }
 
 export const DynamicFields: React.FC<Props> = ({ fields, preview = false }: Props): JSX.Element | null => {
@@ -45,7 +47,7 @@ export const DynamicFields: React.FC<Props> = ({ fields, preview = false }: Prop
                                         key={ name }
                                         label={ label }
                                         name={ name }
-                                        options={options}
+                                        options={options ?? []}
 
                                     />
 
@@ -63,10 +65,23 @@ export const DynamicFields: React.FC<Props> = ({ fields, preview = false }: Prop
                                   />
 
                             )
+                          } else if (type === FieldType.FILE) {
+                            return (
+
+                                    <MyFileCsvField
+                                        disabled={preview}
+                                        key={ name }
+                                        label={ label }
+                                        name={ name }
+                                        options={options}
+
+                                    />
+
+                            )
                           } else {
                             return (
 
-                                    <TextField size="small" fullWidth label={`Tipo ${type} No soportado`} disabled key={name} />
+                                    <TextField size="small" fullWidth label={'Tipo  No soportado'} disabled key={name} />
 
                             )
                           }

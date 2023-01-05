@@ -1,12 +1,12 @@
 import { useField } from 'formik'
-import { FormControl, FormHelperText, InputLabel, Select, SelectChangeEvent } from '@mui/material'
+import { FormControl, FormHelperText, InputLabel, MenuItem, Select, SelectChangeEvent } from '@mui/material'
 import React from 'react'
 import { OptionField } from '../../interfaces/IForms'
 
 interface Props {
   label: string
   name: string
-  options?: OptionField[]
+  options: OptionField[]
   handleOnChange?: (e: SelectChangeEvent<any>) => void
   handleOnBlur?: (e: React.FocusEvent<HTMLInputElement | HTMLTextAreaElement>) => void
   [x: string]: any
@@ -41,7 +41,14 @@ export const MySelectField: React.FC<Props> = ({ label, options, handleOnBlur, h
                 inputProps={{
                   id: props.name
                 }}
-                />
+                >
+                <MenuItem value="">Selccionar</MenuItem>
+                  {
+                      options.map((option) => (
+                          <MenuItem key={option.id} value={option.id}>{option.value}</MenuItem>
+                      ))
+                  }
+              </Select>
 
             {Boolean(error) && touched && <FormHelperText error={Boolean(error) && touched} >{error}</FormHelperText>}
         </FormControl>
