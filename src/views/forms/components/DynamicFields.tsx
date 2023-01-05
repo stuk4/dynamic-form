@@ -66,7 +66,7 @@ export const DynamicFields: React.FC<Props> = ({ fields, preview = false }: Prop
                           } else {
                             return (
 
-                                        < TextField size="small" fullWidth label={`Tipo ${type} No soportado`} disabled key={name} />
+                                    <TextField size="small" fullWidth label={`Tipo ${type} No soportado`} disabled key={name} />
 
                             )
                           }

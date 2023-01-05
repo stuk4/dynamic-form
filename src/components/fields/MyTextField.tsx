@@ -21,6 +21,7 @@ export const MyTextField: React.FC<Props> = ({ label, handleOnBlur, handleOnChan
             fullWidth
             {...field}
             {...props}
+            variant='filled'
             onChange={(e) => {
               onChange(e)
               if (handleOnChange != null) {

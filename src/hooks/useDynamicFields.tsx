@@ -13,14 +13,15 @@ interface IUseDynamicFields {
   initialValues: Record<string, any>
 }
 
-const initialValues: Record<string, any> = {}
-const requiredFields: Record<string, any> = {}
 export const useDynamicFields = ({ fields, extraFields }: Props): IUseDynamicFields => {
+  const initialValues: Record<string, any> = {}
+  const requiredFields: Record<string, any> = {}
+
   if (fields.length !== 0) {
     for (const input of fields) {
-      initialValues[input.name] = input.value.length !== 0 ? input.value : ''
+      initialValues[input.name] = input.value
 
-      if (input.validations.length === 0) continue
+      if (input.validations.length !== 0) continue
       let schema = Yup.string()
 
       for (const rule of input.validations) {

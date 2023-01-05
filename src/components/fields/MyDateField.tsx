@@ -21,6 +21,7 @@ export const MyDateField: React.FC<Props> = ({ label, ...props }: Props): JSX.El
             error={Boolean(error) && touched}
             helperText={Boolean(error) && touched && error}
             size="small"
+            variant='filled'
             label={label}
             autoComplete="nope"
         />

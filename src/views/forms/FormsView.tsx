@@ -6,11 +6,12 @@ import { DynamicFormsContext, IDynamicFormsContext } from '../../context/Dynamic
 import { DynamicFields } from './components/DynamicFields'
 import { Form, Formik, FormikProps } from 'formik'
 import { useDynamicFields } from '../../hooks/useDynamicFields'
+import { GenerateSekeletonFields } from '../../components/fields/GenerateSekeletonField'
 
 export const FormsView: React.FC = (): JSX.Element => {
-  const { dynamicForm } = useContext(DynamicFormsContext) as IDynamicFormsContext
+  const { dynamicForm, loading } = useContext(DynamicFormsContext) as IDynamicFormsContext
   const { validationSchema, initialValues } = useDynamicFields({
-    fields: dynamicForm.formData
+    fields: dynamicForm
   })
   return (
         <Container component="main" maxWidth="sm"
@@ -27,8 +28,8 @@ export const FormsView: React.FC = (): JSX.Element => {
                 <>
 
                 <SelectObjectType />
-                { dynamicForm.formData.length !== 0 &&
-                <Formik
+                { dynamicForm.length !== 0 && !loading
+                  ? <Formik
                     initialValues={initialValues}
                     validationSchema={validationSchema}
                     onSubmit={(values) => {
@@ -54,7 +55,7 @@ export const FormsView: React.FC = (): JSX.Element => {
 
                             >
 
-                              <DynamicFields fields={dynamicForm.formData}/>
+                              <DynamicFields fields={dynamicForm}/>
                               <Button color='secondary' size='large' variant="contained" type='submit'>Enviar</Button>
 
                             </Box>
@@ -62,6 +63,20 @@ export const FormsView: React.FC = (): JSX.Element => {
                         )
                       }
                 </Formik>
+                  : <Box
+                    component="div"
+                    sx={{
+                      display: 'flex',
+                      justifyContent: 'center',
+                      flexWrap: 'wrap',
+                      margin: 'auto',
+                      '& .MuiSkeleton-root': { m: 1, width: '55%' }
+                    }}
+
+                  >
+
+                            <GenerateSekeletonFields rows={4} />
+                  </Box>
               }
              </>
             </Paper>

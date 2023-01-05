@@ -36,6 +36,7 @@ export const MySelectField: React.FC<Props> = ({ label, options, handleOnBlur, h
                     handleOnChange(e)
                   }
                 }}
+                variant='filled'
                 {...field}
                 inputProps={{
                   id: props.name

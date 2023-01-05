@@ -19,7 +19,7 @@ export const MyTextFieldMultiline: React.FC<Props> = ({ label, ...props }: Props
             fullWidth
             size="medium"
             autoComplete="nope"
-            variant="outlined"
+            variant='filled'
             minRows={3}
             maxRows={6}
             {...field}
