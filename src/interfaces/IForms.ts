@@ -6,21 +6,34 @@ export interface IForm {
 
 export interface Field {
   id: number
-  type: string
+  type: FieldType
   name: string
   label: string
   value: string
-  options?: Option[]
+  options?: OptionField[]
   validations: Validation[]
 }
 
-export interface Option {
+export interface OptionField {
   id: number
   value: string
   label: string
 }
 
 export interface Validation {
-  type: string
+  type: ValidationType
   value?: number
+}
+export enum ValidationType {
+  REQUIRED = 'required',
+  MAX_LENGTH = 'maxLength'
+}
+
+export enum FieldType {
+  SELECT = 'select',
+  INPUT = 'input',
+  TEXT_AREA = 'text-area',
+  DATE_PICKER = 'date-picker',
+  FILE = 'file'
+
 }

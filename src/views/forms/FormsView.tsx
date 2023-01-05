@@ -1,11 +1,9 @@
-import { Container, Paper } from '@mui/material'
-import React, { useContext } from 'react'
-import { DynamicFormsContext, IDynamicFormsContext } from '../../context/DynamicFormsContext'
+import { Box, Container, Paper, TextField } from '@mui/material'
+import React from 'react'
+
 import { SelectObjectType } from './components/SelectObjectType'
 
 export const FormsView: React.FC = (): JSX.Element => {
-  const { dynamicForm } = useContext(DynamicFormsContext) as IDynamicFormsContext
-
   return (
         <Container component="main" maxWidth="sm"
             sx={
@@ -19,8 +17,24 @@ export const FormsView: React.FC = (): JSX.Element => {
               }}
               >
                 <SelectObjectType />
+                <Box
+                  component="form"
+                  sx={{
+                    '& .MuiTextField-root': { m: 1, width: '25ch' }
+                  }}
 
-              {dynamicForm.objectType}
+                  noValidate
+                  autoComplete="off"
+                >
+                  <TextField
+                    id="outlined-multiline-flexible"
+                    label="Multiline"
+                    multiline
+                    maxRows={4}
+                  />
+
+                </Box>
+
             </Paper>
         </Container>
   )
