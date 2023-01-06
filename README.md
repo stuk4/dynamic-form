@@ -19,6 +19,10 @@ npm 8.15.0
 ```
 yarn install
 ```
+3. Levantar
+```
+yarn dev
+```
 
 # El por qué de las cosas:
 ### Dependencias:
