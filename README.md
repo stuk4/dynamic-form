@@ -112,6 +112,6 @@ useDynamicFields.tsx
 4. Logica para manejar el estado de la aplicación
 > Se usa ContextApi debido a que es la mas adecuada para proyectos de menor escala.
 ```
-useDynamicFields.tsx
+useDynamicContext.tsx
 ```
 # Mira el proyecto [aquí](https://stuk4.github.io/dynamic-form/ "aquí")
