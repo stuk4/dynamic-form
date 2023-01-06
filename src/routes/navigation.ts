@@ -1,6 +1,5 @@
 import { SvgIconTypeMap } from '@mui/material'
 import { OverridableComponent } from '@mui/material/OverridableComponent'
-import { lazy, LazyExoticComponent } from 'react'
 import CandlestickChartIcon from '@mui/icons-material/CandlestickChart'
 import BarChartIcon from '@mui/icons-material/BarChart'
 interface INavigation {
