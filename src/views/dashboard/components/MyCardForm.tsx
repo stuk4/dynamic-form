@@ -9,7 +9,7 @@ interface MyCardProps {
 export const MyCardForm = ({ form, title, showDetail }: MyCardProps): JSX.Element => {
   return (
     <Grid item xs={12} sm={2} md={2} >
-        <Card sx={{ minWidth: 275 }}>
+        <Card sx={{ minWidth: 200, minHeight: 176 }}>
         <CardContent>
             <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
 

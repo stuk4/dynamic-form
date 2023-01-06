@@ -14,13 +14,14 @@ interface Detail {
 
 export const DashboardView: React.FC = (): JSX.Element => {
   const { savedForms } = useContext(DynamicFormsContext) as IDynamicFormsContext
-  const [detail, setDetail] = useState<Detail>({
+  const [detail, setDetail] = useState<Detail | null>({
     detail: [],
     title: ''
   })
   const [showModal, setShowModal] = useState<boolean>(false)
-  console.log('dash', savedForms)
+
   const showDetail = (detail: Detail): void => {
+    setDetail(null)
     setDetail(detail)
     setShowModal(true)
   }
@@ -43,7 +44,7 @@ export const DashboardView: React.FC = (): JSX.Element => {
           ))}
         </Grid>
     </Box>
-      { showModal && <MyDialogDetail detail={detail} open={showModal} setOpen={setShowModal} />}
+      { showModal && (detail != null) && <MyDialogDetail detail={detail} open={showModal} setOpen={setShowModal} />}
     </>
 
   )

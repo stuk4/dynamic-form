@@ -1,6 +1,9 @@
 import { useField } from 'formik'
-import { TextField } from '@mui/material'
+import { Button, TextField } from '@mui/material'
 import React from 'react'
+import { FileDownload } from '@mui/icons-material'
+import { base64ToFile } from '../../utils/base64ToFile'
+import { downloadFile } from '../../utils/downloadFile'
 interface Props {
   label: string | undefined
   name: string
@@ -10,61 +13,79 @@ interface Props {
   size?: 'small' | 'medium'
   placeholder?: string
   [x: string]: any
+  preview: boolean
 
 }
-export const MyFileCsvField: React.FC<Props> = ({ label, handleOnBlur, handleOnChange, size = 'small', ...props }: Props): JSX.Element => {
+export const MyFileCsvField: React.FC<Props> = ({ label, handleOnBlur, handleOnChange, preview, size = 'small', ...props }: Props): JSX.Element => {
   const [fields, metaProps, helpers] = useField(props)
   const { setValue } = helpers
   const { error, touched } = metaProps
   const { value } = { ...fields }
 
+  const downloadFileCsv = (): void => {
+    if (preview) {
+      const file = base64ToFile(value)
+      downloadFile(file)
+    }
+  }
+
   return (
     <>
-      <TextField
-        fullWidth
-        InputLabelProps={{ shrink: true }}
-        variant="standard"
-        type="file"
-        inputProps={{
-          accept: '.csv'
-        }}
-        onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-          const file = e.target.files?.[0]
+      {
+        preview
 
-          if (file == null) {
-            setValue('')
-            return
-          }
-          const fileReader = new FileReader()
-          fileReader.onload = (e) => {
-            console.log('Salto')
+          ? <Button variant="contained" onClick={() => { downloadFileCsv() }} endIcon={<FileDownload />}>
+            { base64ToFile(value).name}
+          </Button>
 
-            setValue((e.target?.result as string).split(',')[1])
-          }
+          : <>
+            <TextField
+              fullWidth
+              disabled={preview}
+              InputLabelProps={{ shrink: true }}
+              variant="standard"
+              type="file"
+              inputProps={{
+                accept: '.csv'
+              }}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                const file = e.target.files?.[0]
 
-          fileReader.readAsDataURL(file)
-        }}
-        error={Boolean(error) && touched}
-        helperText={Boolean(error) && touched && error}
+                if (file == null) {
+                  setValue('')
+                  return
+                }
+                const fileReader = new FileReader()
+                fileReader.onload = (e) => {
+                  setValue((e.target?.result as string).split(',')[1])
+                }
 
-        size={size}
-        label={label}
-        autoComplete="nope"
-      />
-      <TextField
-        fullWidth
-        variant='filled'
-        value={value}
-        {...props}
-        sx={{
-          display: 'none'
-        }}
-        size={size}
-        label={label}
-        autoComplete="nope"
-        error={Boolean(error) && touched}
-        helperText={Boolean(error) && touched && error}
-      />
+                fileReader.readAsDataURL(file)
+              }}
+              error={Boolean(error) && touched}
+              helperText={Boolean(error) && touched && error}
+              size={size}
+              label={label}
+              autoComplete="nope"
+            />
+
+            <TextField
+              fullWidth
+
+              variant='filled'
+
+              {...props}
+              sx={{
+                display: 'none'
+              }}
+              size={size}
+              label={label}
+              autoComplete="nope"
+              error={Boolean(error) && touched}
+              helperText={Boolean(error) && touched && error}
+            />
+          </>
+      }
     </>
 
   )

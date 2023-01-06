@@ -1,12 +1,12 @@
 
 import { TextField } from '@mui/material'
 import React from 'react'
-import { MyTextField } from '../../../components/fields/MyTextField'
-import { MyDateField } from '../../../components/fields/MyDateField'
-import { Field, FieldType } from '../../../interfaces/IForms'
-import { MySelectField } from '../../../components/fields/MySelectField'
-import { MyTextFieldMultiline } from '../../../components/fields/MyTextFieldMultiline'
-import { MyFileCsvField } from '../../../components/fields/MyFileCsvField'
+import { MyTextField } from './MyTextField'
+import { MyDateField } from './MyDateField'
+import { Field, FieldType } from '../../interfaces/IForms'
+import { MySelectField } from './MySelectField'
+import { MyTextFieldMultiline } from './MyTextFieldMultiline'
+import { MyFileCsvField } from './MyFileCsvField'
 interface Props {
   fields: Field[]
   preview?: boolean
@@ -70,6 +70,7 @@ export const DynamicFields: React.FC<Props> = ({ fields, preview = false }: Prop
 
                                     <MyFileCsvField
                                         disabled={preview}
+                                        preview={preview}
                                         key={ name }
                                         label={ label }
                                         name={ name }
@@ -85,8 +86,6 @@ export const DynamicFields: React.FC<Props> = ({ fields, preview = false }: Prop
 
                             )
                           }
-
-                          // throw new Error(`El type: ${ type }, no es soportado`);
                         })
                     }
                 </>
