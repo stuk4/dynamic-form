@@ -13,13 +13,13 @@ yarn 1.22.19
 npm 8.15.0
 ```
 
-1. Clonar el repositorio
-2. Ejecutar
+2. Clonar el repositorio
+3. Ejecutar
 > Debido a que el proyecto utiliza yarn, se recomienda no usar npm.
 ```
 yarn install
 ```
-3. Levantar
+4. Levantar
 ```
 yarn dev
 ```
