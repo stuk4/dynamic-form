@@ -105,11 +105,7 @@ DynamicFields.tsx
 ```
 useDynamicFields.tsx
 ```
-3. Logica para generar inputs y  validaciones dinámicas.
-```
-useDynamicFields.tsx
-```
-4. Logica para manejar el estado de la aplicación
+3. Logica para manejar el estado de la aplicación
 > Se usa ContextApi debido a que es la mas adecuada para proyectos de menor escala.
 ```
 useDynamicContext.tsx
