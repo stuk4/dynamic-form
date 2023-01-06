@@ -1,7 +1,6 @@
 {
   "name": "dynamic-form",
   "private": true,
-  "homepage": "https://stuk4.github.io/dynamic-form/dist",
   "version": "0.0.1",
   "type": "module",
   "scripts": {

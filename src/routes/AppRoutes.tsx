@@ -7,9 +7,9 @@ import React from 'react'
 export const AppRoutes: React.FC = () => {
   return (
     <Routes>
-        <Route path="/" element={<LayoutView />}>
-            <Route path="/" element={<FormsView />} />
-            <Route path="/dashboard" element={<DashboardView />} />
+        <Route path="/dynamic-form" element={<LayoutView />}>
+            <Route path="/dynamic-form/" element={<FormsView />} />
+            <Route path="/dynamic-form/dashboard" element={<DashboardView />} />
         </Route>
     </Routes>
   )
