@@ -1,14 +1,17 @@
 import { FormControl, FormControlLabel, FormLabel, Radio, RadioGroup } from '@mui/material'
-import React, { useContext } from 'react'
+import React, { useContext, useState, useEffect } from 'react'
 import { DynamicFormsContext, IDynamicFormsContext } from '../../../context/DynamicFormsContext'
 
 export const SelectObjectType: React.FC = (): JSX.Element => {
-  const { updateDynamicForm, updateObjectType, loading, objectType: objTypeContext } = useContext(DynamicFormsContext) as IDynamicFormsContext
-  // const [objectType, setObjectType] = useState<string>(objTypeContext)
+  const { updateDynamicForm, loading } = useContext(DynamicFormsContext) as IDynamicFormsContext
+  const [objectType, setObjectType] = useState<string>('1')
+
+  useEffect(() => {
+    updateDynamicForm(objectType)
+  }, [])
 
   const handleChangeObjectType = (event: React.ChangeEvent<HTMLInputElement>): void => {
-    // setObjectType(event.target.value)
-    updateObjectType(event.target.value)
+    setObjectType(event.target.value)
     updateDynamicForm(event.target.value)
   }
 
@@ -19,7 +22,7 @@ export const SelectObjectType: React.FC = (): JSX.Element => {
       row
       aria-labelledby="objects"
       name="objets"
-      value={objTypeContext}
+      value={objectType}
       onChange={handleChangeObjectType}
 
     >

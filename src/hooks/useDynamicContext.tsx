@@ -5,21 +5,14 @@ import object2 from '../data-example/object-2.json'
 import object3 from '../data-example/object-3.json'
 import object4 from '../data-example/object-4.json'
 import Swal from 'sweetalert2'
-interface Props {
-  dynamicForm: Field[]
-  saveForm: (form: Field[]) => void
-  updateDynamicForm: (objType: string) => void
-  updateObjectType: (objType: string) => void
-  savedForms: [Field[]]
-  loading: boolean
-  objectType: string
-}
-export const useDynamicContext = (): Props => {
-  const [dynamicForm, setDynamicForm] = useState<Field[]>([])
-  const [objectType, setObjectType] = useState<string>('1')
-  const [loading, setLoading] = useState<boolean>(true)
-  const [savedForms, setSavedForms] = useState<[Field[]]>([[]])
+import { useNavigate } from 'react-router-dom'
+import { IDynamicFormsContext } from '../context/DynamicFormsContext'
 
+export const useDynamicContext = (): IDynamicFormsContext => {
+  const navigate = useNavigate()
+  const [dynamicForm, setDynamicForm] = useState<Field[]>([])
+  const [loading, setLoading] = useState<boolean>(false)
+  const [savedForms, setSavedForms] = useState<[Field[]]>([[]])
   const selectObjectType = (objectType: number): any => {
     if (objectType === 1) {
       return object1.form
@@ -35,15 +28,13 @@ export const useDynamicContext = (): Props => {
     }
   }
 
-  const updateObjectType = (objType: string): void => {
-    setObjectType(objType)
-  }
   const updateDynamicForm = (objType: string): void => {
     setLoading(true)
     void new Promise<void>(resolve => {
       setTimeout(resolve, 1000)
     })
       .then(() => {
+        // LO parseo doble para evitar la mutacion debido a que son archivos estaticos
         const data = JSON.parse(JSON.stringify(selectObjectType(parseInt(objType)))) as unknown as Field[]
 
         setDynamicForm([...data])
@@ -59,28 +50,23 @@ export const useDynamicContext = (): Props => {
     currentArray.push(form)
     localStorage.setItem('savedForms', JSON.stringify(currentArray))
     setSavedForms(currentArray)
+    navigate('dynamic-form/dashboard')
+
     Swal.fire({ title: 'Formulario enviado', icon: 'success' }).then(() => { }).finally(() => { })
   }
   const getSavedForms = (): void => {
     const currentArray: [Field[]] = JSON.parse(localStorage.getItem('savedForms') ?? '[]')
-
     setSavedForms(currentArray)
   }
   useEffect(() => {
     getSavedForms()
   }, [])
 
-  useEffect(() => {
-    updateDynamicForm(objectType)
-  }, [])
-
   return {
-    dynamicForm,
     saveForm,
     updateDynamicForm,
-    updateObjectType,
+    dynamicForm,
     savedForms,
-    loading,
-    objectType
+    loading
   }
 }

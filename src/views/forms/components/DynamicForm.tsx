@@ -20,6 +20,7 @@ export const DynamicForm: React.FC = (): JSX.Element => {
       return field
     })
     // Lo casteo ya que estoy seguro que siempre serán de tipo Field
+    // Primero es unkown debido a que son formularios "aleatorios"
     saveForm(savedFields as unknown as Field[])
   }
 

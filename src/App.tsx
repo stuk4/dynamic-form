@@ -5,11 +5,11 @@ import { AppRoutes } from './routes/AppRoutes'
 import { DynamicFormsProvider } from './context/DynamicFormsContext'
 const App: React.FC = (): JSX.Element => {
   return (
-    <DynamicFormsProvider>
-        <BrowserRouter>
-          <AppRoutes />
-        </BrowserRouter>
-    </DynamicFormsProvider>
+    <BrowserRouter>
+      <DynamicFormsProvider>
+            <AppRoutes />
+      </DynamicFormsProvider>
+    </BrowserRouter>
   )
 }
 
