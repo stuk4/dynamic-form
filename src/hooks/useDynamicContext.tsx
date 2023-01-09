@@ -31,7 +31,7 @@ export const useDynamicContext = (): IDynamicFormsContext => {
   const updateDynamicForm = (objType: string): void => {
     setLoading(true)
     void new Promise<void>(resolve => {
-      setTimeout(resolve, 1000)
+      setTimeout(resolve, 500)
     })
       .then(() => {
         // LO parseo doble para evitar la mutacion debido a que son archivos estaticos
